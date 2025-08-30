@@ -2,7 +2,7 @@ import React from "react";
 import Row from "./Row.jsx";
 import Banner from "./Banner.jsx";
 import Nav from "./Nav.jsx";
-import requests from "./requests";
+import requests from "./requests.js";
 
 function App() {
   return (
