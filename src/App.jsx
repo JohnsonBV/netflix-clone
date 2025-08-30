@@ -1,8 +1,8 @@
 import React from "react";
-import Row from "./Row.jsx";
-import Banner from "./Banner.jsx";
-import Nav from "./Nav.jsx";
-import requests from "./requests.js";
+import Row from "./Row";
+import Banner from "./Banner";
+import Nav from "./Nav";
+import requests from "./requests";
 
 function App() {
   return (
