@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "./axios.js"; // custom axios baseURL setup
+import axios from "./axios"; // custom axios baseURL setup
 import "./Row.css";
 
 function Row({ title, fetchUrl, isLargeRow }) {
