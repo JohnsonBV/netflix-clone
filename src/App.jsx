@@ -2,6 +2,7 @@ import React from "react";
 import Row from "./Row.jsx";
 import Banner from "./Banner.jsx";
 import Nav from "./Nav.jsx";
+import MovieDetail from "./MovieDetail.jsx";
 import requests from "./requests.js";
 import "./App.css";
 
@@ -19,6 +20,8 @@ function App() {
       <Row title="Horror Movies" fetchUrl={requests.fetchHorrorMovies} />
       <Row title="Romance Movies" fetchUrl={requests.fetchRomanceMovies} />
       <Row title="Documentaries" fetchUrl={requests.fetchDocumentaries} />
+
+      <MovieDetail />
     </div>
   );
 }
