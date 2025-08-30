@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "./axios";
+import axios from "../api/axios";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
 import "./Row.css";
@@ -19,19 +19,11 @@ function Row({ title, fetchUrl, isLargeRow }) {
     fetchData();
   }, [fetchUrl]);
 
-  const opts = {
-    height: "390",
-    width: "100%",
-    playerVars: {
-      autoplay: 1,
-    },
-  };
-
   const handleClick = (movie) => {
     if (trailerUrl) {
-      setTrailerUrl("");
+      setTrailerUrl(""); // close trailer if already open
     } else {
-      movieTrailer(movie?.title || movie?.name || movie?.original_name || "")
+      movieTrailer(movie?.name || movie?.title || movie?.original_name || "")
         .then((url) => {
           const urlParams = new URLSearchParams(new URL(url).search);
           setTrailerUrl(urlParams.get("v"));
@@ -40,9 +32,18 @@ function Row({ title, fetchUrl, isLargeRow }) {
     }
   };
 
+  const opts = {
+    height: "390",
+    width: "100%",
+    playerVars: {
+      autoplay: 1,
+    },
+  };
+
   return (
     <div className="row">
       <h2>{title}</h2>
+
       <div className="row__posters">
         {movies.map((movie) => (
           <img
@@ -56,6 +57,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
           />
         ))}
       </div>
+
       {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
     </div>
   );
