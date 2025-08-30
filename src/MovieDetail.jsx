@@ -4,7 +4,7 @@ import axios from "axios";
 import YouTube from "react-youtube";
 import "./MovieDetail.css";
 
-const API_KEY = "YOUR_TMDB_API_KEY";
+const API_KEY = "4c28a0ae";
 
 function MovieDetail() {
   const { selectedMovie, setSelectedMovie } = useMovie();
