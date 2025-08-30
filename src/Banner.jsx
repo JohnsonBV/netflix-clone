@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import requests from "./requests";
+import React, { useEffect, useState } from "react";
+import axios from "./axios.js";
+import requests from "./requests.js";
 import "./Banner.css";
 
 function Banner() {
@@ -14,13 +14,12 @@ function Banner() {
           Math.floor(Math.random() * request.data.results.length - 1)
         ]
       );
-      return request;
     }
     fetchData();
   }, []);
 
   function truncate(str, n) {
-    return str?.length > n ? str.substr(0, n - 1) + "…" : str;
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
 
   return (
@@ -28,7 +27,7 @@ function Banner() {
       className="banner"
       style={{
         backgroundSize: "cover",
-        backgroundImage: `url("https://image.tmdb.org/t/p/original${movie?.backdrop_path}")`,
+        backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
         backgroundPosition: "center center",
       }}
     >
