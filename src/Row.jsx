@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // npm package
+import axios from "axios";
 import "./Row.css";
+import { useMovie } from "./MovieContext.jsx";
 
 function Row({ title, fetchUrl }) {
   const [movies, setMovies] = useState([]);
-
+  const { setSelectedMovie } = useMovie();
   const base_url = "https://image.tmdb.org/t/p/original/";
 
   useEffect(() => {
@@ -19,6 +20,10 @@ function Row({ title, fetchUrl }) {
     fetchData();
   }, [fetchUrl]);
 
+  const handleMovieClick = (movie) => {
+    setSelectedMovie(movie);
+  };
+
   return (
     <div className="row">
       <h2 className="row__title">{title}</h2>
@@ -31,6 +36,7 @@ function Row({ title, fetchUrl }) {
                 className="row__poster"
                 src={`${base_url}${movie.poster_path}`}
                 alt={movie.name || movie.title}
+                onClick={() => handleMovieClick(movie)}
               />
             )
         )}
