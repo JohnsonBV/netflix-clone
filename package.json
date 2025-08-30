@@ -1,6 +1,7 @@
 {
   "name": "netflix-clone",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -16,3 +17,4 @@
     "vite": "^5.4.19",
     "@vitejs/plugin-react": "^4.0.0"
   }
+}
