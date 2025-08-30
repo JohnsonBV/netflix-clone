@@ -1,50 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { useMovie } from "./MovieContext.jsx";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import YouTube from "react-youtube";
+import axios from "../api/axios";
 import "./MovieDetail.css";
 
-const API_KEY = "4c28a0ae";
-
-function MovieDetail() {
-  const { selectedMovie, setSelectedMovie } = useMovie();
-  const [trailer, setTrailer] = useState("");
+function MovieDetail({ movie, onClose }) {
+  const [trailerUrl, setTrailerUrl] = useState("");
 
   useEffect(() => {
-    async function fetchTrailer() {
-      if (!selectedMovie) return;
-      try {
-        const request = await axios.get(
-          `https://api.themoviedb.org/3/movie/${selectedMovie.id}/videos?api_key=${API_KEY}&language=en-US`
-        );
-        const trailers = request.data.results.filter(
-          (video) => video.type === "Trailer"
-        );
-        setTrailer(trailers[0]?.key || "");
-      } catch (error) {
-        console.error("Error fetching trailer:", error);
-      }
+    if (movie) {
+      const fetchTrailer = async () => {
+        try {
+          const response = await axios.get(
+            `/movie/${movie.id}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+          );
+          const trailers = response.data.results.filter(
+            (vid) => vid.type === "Trailer"
+          );
+          if (trailers.length > 0) {
+            setTrailerUrl(trailers[0].key);
+          }
+        } catch (error) {
+          console.error("Error fetching trailer:", error);
+        }
+      };
+      fetchTrailer();
     }
-    fetchTrailer();
-  }, [selectedMovie]);
+  }, [movie]);
 
-  if (!selectedMovie) return null;
-
-  const base_url = "https://image.tmdb.org/t/p/original/";
+  if (!movie) return null;
 
   return (
-    <div className="modal">
-      <div className="modal__content">
-        <span className="modal__close" onClick={() => setSelectedMovie(null)}>
-          &times;
-        </span>
-        <h2>{selectedMovie.title || selectedMovie.name}</h2>
-        <p>{selectedMovie.overview}</p>
-        {trailer && <YouTube videoId={trailer} opts={{ width: "100%", height: "390" }} />}
-        {selectedMovie.backdrop_path && (
-          <img
-            src={`${base_url}${selectedMovie.backdrop_path}`}
-            alt={selectedMovie.title || selectedMovie.name}
+    <div className="movieDetailOverlay" onClick={onClose}>
+      <div className="movieDetailContainer" onClick={(e) => e.stopPropagation()}>
+        <button className="closeButton" onClick={onClose}>✖</button>
+        <h2>{movie.title || movie.name}</h2>
+        <p>{movie.overview}</p>
+        {trailerUrl && (
+          <YouTube
+            videoId={trailerUrl}
+            opts={{ height: "390", width: "100%", playerVars: { autoplay: 1 } }}
           />
         )}
       </div>
