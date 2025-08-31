@@ -1,33 +1,20 @@
-.movieDetailOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+.movieDetail {
+  margin: 20px;
+  color: #fff;
+  text-align: center;
 }
 
-.movieDetailContainer {
-  background: #141414;
-  padding: 20px;
-  max-width: 800px;
-  width: 90%;
-  color: white;
-  border-radius: 8px;
-  position: relative;
-}
-
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: red;
+.movieDetail button {
+  background-color: #e50914;
+  color: #fff;
   border: none;
-  color: white;
-  font-size: 20px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
+}
+
+.movieDetail button:hover {
+  background-color: #f6121d;
 }
