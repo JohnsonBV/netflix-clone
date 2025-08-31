@@ -8,7 +8,6 @@
   align-items: center;
   padding: 0 20px;
   z-index: 100;
-  transition-timing-function: ease-in;
   transition: all 0.5s;
 }
 
@@ -19,13 +18,14 @@
 .nav__logo {
   position: fixed;
   left: 20px;
-  width: 80px;
+  width: 100px;
   object-fit: contain;
 }
 
 .nav__avatar {
   position: fixed;
   right: 20px;
-  width: 30px;
+  width: 35px;
   object-fit: contain;
+  cursor: pointer;
 }
