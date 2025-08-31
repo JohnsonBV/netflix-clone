@@ -1,47 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import YouTube from "react-youtube";
-import axios from "../api/axios";
+import movieTrailer from "movie-trailer";
 import "./MovieDetail.css";
 
-function MovieDetail({ movie, onClose }) {
+function MovieDetail({ movie }) {
   const [trailerUrl, setTrailerUrl] = useState("");
 
-  useEffect(() => {
-    if (movie) {
-      const fetchTrailer = async () => {
-        try {
-          const response = await axios.get(
-            `/movie/${movie.id}/videos?api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-          );
-          const trailers = response.data.results.filter(
-            (vid) => vid.type === "Trailer"
-          );
-          if (trailers.length > 0) {
-            setTrailerUrl(trailers[0].key);
-          }
-        } catch (error) {
-          console.error("Error fetching trailer:", error);
-        }
-      };
-      fetchTrailer();
+  const handleClick = () => {
+    if (trailerUrl) {
+      setTrailerUrl(""); // close trailer
+    } else {
+      movieTrailer(movie?.name || movie?.title || "")
+        .then((url) => {
+          const urlParams = new URLSearchParams(new URL(url).search);
+          setTrailerUrl(urlParams.get("v"));
+        })
+        .catch((error) => console.log("Trailer not found:", error));
     }
-  }, [movie]);
+  };
 
-  if (!movie) return null;
+  const opts = {
+    height: "390",
+    width: "100%",
+    playerVars: {
+      autoplay: 1,
+    },
+  };
 
   return (
-    <div className="movieDetailOverlay" onClick={onClose}>
-      <div className="movieDetailContainer" onClick={(e) => e.stopPropagation()}>
-        <button className="closeButton" onClick={onClose}>✖</button>
-        <h2>{movie.title || movie.name}</h2>
-        <p>{movie.overview}</p>
-        {trailerUrl && (
-          <YouTube
-            videoId={trailerUrl}
-            opts={{ height: "390", width: "100%", playerVars: { autoplay: 1 } }}
-          />
-        )}
-      </div>
+    <div className="movieDetail">
+      <h2>{movie?.title || movie?.name}</h2>
+      <button onClick={handleClick}>
+        {trailerUrl ? "Close Trailer" : "Play Trailer"}
+      </button>
+      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
     </div>
   );
 }
