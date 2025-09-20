@@ -21,3 +21,27 @@
 .text-center {
   text-align: center;
 }
+/* styles.css or index.css */
+.row-posters {
+  display: flex;
+  overflow-x: scroll;
+  padding: 20px;
+}
+
+.row-poster {
+  max-height: 150px;
+  object-fit: contain;
+  margin-right: 10px;
+  transition: transform 450ms;
+}
+
+.row-poster:hover {
+  transform: scale(1.08);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .row-poster {
+    max-height: 100px;
+  }
+}
