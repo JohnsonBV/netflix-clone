@@ -2,7 +2,7 @@
   "name": "netflix-clone",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://<your-username>.github.io/netflix-clone/",
+  "homepage": "https://JohnsonBV.github.io/netflix-clone/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
