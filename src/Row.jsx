@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
-import axios from "../api/axios";
+import axios from "./axios";
 import "./Row.css";
 
 function Row({ title, fetchUrl, isLargeRow = false }) {
